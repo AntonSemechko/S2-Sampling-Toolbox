@@ -12,7 +12,7 @@ function [V,Tri]=SpiralSampleSphere(N,vis)
 %		      setting.
 %
 % OUTPUT:  
-%   - V     : N-by-3 array of vertex (i.e., sample) coordinates.
+%   - V     : N-by-3 array of vertex coordinates.
 %   - Tri   : M-by-3 list of face-vertex connectivities. 
 %
 %

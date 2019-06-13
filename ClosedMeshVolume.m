@@ -20,7 +20,7 @@ function Vol=ClosedMeshVolume(TR)
 % Face and vertex lists
 [Tri,V]=GetMeshData(TR);
 if size(Tri,2)~=3
-    error('This function is meant ONLY for triangular surface meshes.')
+    error('This function is intended ONLY for triangular surface meshes')
 end
     
 % Face vertices

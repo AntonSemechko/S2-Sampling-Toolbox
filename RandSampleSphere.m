@@ -28,7 +28,7 @@ end
 
 N=round(N);
 if numel(N)~=1 || ~isnumeric(N) || N<1
-    error('Invalid entry for 1st input argument')
+    error('Invalid entry for 1st input argument (N)')
 end
 if N<3, spl='uniform'; end
 
@@ -65,11 +65,14 @@ else
 end
 
 % Convert z to latitude
+z(z<-1)=-1;
+z(z>1)=1;
 lat=acos(z);
 
 % Convert spherical to rectangular co-ords
-x=cos(lon).*sin(lat);
-y=sin(lon).*sin(lat);
+s=sin(lat);
+x=cos(lon).*s;
+y=sin(lon).*s;
         
 X=[x,y,z];
 
