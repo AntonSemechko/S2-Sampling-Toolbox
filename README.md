@@ -1,5 +1,7 @@
 # S^2 Sampling Toolbox
 
+[![View Suite of functions to perform uniform sampling of a sphere on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/37004-suite-of-functions-to-perform-uniform-sampling-of-a-sphere)
+
 The problem of finding a uniform distribution of points on a sphere has a relatively long history. Its emergence is 
 commonly attributed to the physicist J. J. Thomson, who posed it in 1904 after creating his so-called plum 
 pudding model of the atom [[1]]. As such, the problem involves determination of a minimum energy configuration of N 
