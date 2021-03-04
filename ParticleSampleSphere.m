@@ -22,17 +22,17 @@ function [V,Tri,Ue_i,Ue]=ParticleSampleSphere(varargin)
 %              This input is optional and should be used in place of 'N' 
 %              when suboptimal initial configuration of particles is 
 %              available. Corresponding value of 'Vo' must be a N-by-3 
-%              array of particle coordinartes, where N the number of 
-%              particles (or antipal particle pairs if 'asym' is true). 
+%              array of particle coordinates, where N the number of 
+%              particles (or antipodal particle pairs if 'asym' is true). 
 %              Note that initializations consisting of more than 1E3 
 %              particles (or particle pairs) are admissible, but may lead 
 %              to unreasonably long optimization times.
 %   - 's'    : Reisz s-energy parameter used to control the strength of
 %              particle interactions; higher values of 's' lead to stronger
-%              interactions among neighbouring particles. 's' must be a 
-%              real number greater than zero. 's'=1 is the default setting.
+%              short-range interactions . 's' must be a real number greater
+%              than zero. 's'=1 is the default setting.
 %   - 'asym' : compute antipodally symmetric particle configurations. Set 
-%              'asym' to true to obtain a uniformly distrubted set of 2N 
+%              'asym' to true to obtain a uniformly distributed set of 2N 
 %              particles comprised of N antipodal particle pairs. Recall, 
 %              an antipodal partner of particle P is -P (i.e., P reflected 
 %              through the origin). 'asym'=false is the default setting. 
@@ -49,8 +49,8 @@ function [V,Tri,Ue_i,Ue]=ParticleSampleSphere(varargin)
 %   - 'upd'  : progress update.  Set 'upd' to false to disable progress
 %              updates. 'upd'=true is the default setting.
 %   - 'qdlg' : default maximum particle limit verification. Set 'qdlg' to 
-%              false to disable the question dialig pop-up prompting the 
-%              user to inidicate if he wishes to continue when N>1E3.
+%              false to disable the question dialog pop-up prompting the 
+%              user to indicate if they wish to continue when N>1E3.
 %              'qdlg'=true is the default setting.
 %
 %              REMAINS TO BE IMPLEMENTED 
@@ -251,7 +251,7 @@ while i<prms.Nitr && dE>prms.Etol && dV>prms.Dtol
                 end
                 Ue_i=sum(Ue_ij,2);
                 if prms.asym
-                    Ue_i=Ue_i+(1/pi)^s;
+                    Ue_i=Ue_i+(1/pi)^s; %#ok<*NASGU>
                 end
                 
                 dV_max=2;
@@ -451,14 +451,14 @@ for i=1:Narg/2
             end
             
             % Check the format
-            if ~ismatrix(Val) || ~isnumeric(Val) || size(Val,2)~=3 || size(Val,1)<14 || sum(~isfinite(Val(:)))>0 
+            if ~ismatrix(Val) || ~isnumeric(Val) || size(Val,2)~=3 || size(Val,1)<14 || any(~isfinite(Val(:)))
                 error('Incorrect entry for ''%s''. ''%s'' must be set to a N-by-3 array, where N is the number of particles (or particle pairs).',FNo{2},FNo{2})
             end
                         
             % Make sure particles are on the unit sphere
             prms.V=ProjectOnSn(Val);
             prms.user_init=true;
-            N=size(V,1);
+            N=size(prms.V,1);
             
         case 3 % s parameter
             
@@ -484,7 +484,7 @@ for i=1:Narg/2
             end
             prms.Etol=Val;
             
-        case 6 % maximum dispalcement tolerance
+        case 6 % maximum displacement tolerance
             
             % Check format
             if numel(Val)~=1 || ~isnumeric(Val) || ~isfinite(Val) || Val<eps 
@@ -533,7 +533,7 @@ end
 
 
 if ~isempty(N)
-    chk=numel(N)~=1 | ~isnumeric(N) | sum(~isfinite(N(:)))>0 | ~isequal(round(N),N);
+    chk=numel(N)~=1 | ~isnumeric(N) | any(~isfinite(N(:))) | ~isequal(round(N),N);
     if  chk || (prms.asym && N<7) || (~prms.asym && N<14)
         error('Incorrect entry for ''N''. Total number of particles must be greater than 13.')
     end

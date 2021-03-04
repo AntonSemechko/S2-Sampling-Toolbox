@@ -36,7 +36,7 @@ i=0:(N-1);              % particle (i.e., point sample) index
 lat=acos(1-2*i/(N-1));  % latitude is defined so that particle index is proportional to surface area between 0 and lat
 lon=i*ga;               % position particles at even intervals along longitude
 
-% Convert from spherical to Cartesian co-ordinates
+% Convert from spherical to Cartesian coordinates
 x=sin(lat).*cos(lon);
 y=sin(lat).*sin(lon);
 z=cos(lat);

@@ -1,7 +1,7 @@
 function TR=DodecahedronMesh
 % Generate a triangular surface mesh of a Pentakis dodecahedron. This 
 % object is a dual representation of an icosahedron; i.e., its vertices
-% correspond to the centroids of icosaheron's faces.
+% correspond to the centroids of icosahedron's faces.
 %
 %   - TR    : 'triangulation' object representing a Pentakis dodecahedron.           
 %
